@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+
+<title>Timeslots</title>
+
+<!-- Import stylesheets -->
+<link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="todo-container">
+        <h2>Timeslots</h2>
+
+        <div class="todo">
+
+            <!-- Timeslot List -->
+            <ul class="todo-list">
+                <!-- Iterate over each timeSlot from MongoDB (variable defined in get methods of index.js)-->
+                <% timeSlots.forEach(function(details) { %>
+                    
+                    <!-- Make the timeslots read-only if the user has submitted -->
+                    <% if (userData.submitted) { %>
+
+                        <!-- HTML display format of each timeslot -->
+                        <li class="todo-list-item">
+
+                            <!-- Check if the timeslot is available, fill in the star icon if it is, else leave the star icon unfilled -->
+                            <% if (details.available) { %>
+                                <div class="star-filled">
+                                    <span class="fas fa-star"></span>
+
+                                    <!-- Display the timeslot name via the content field of the timeslot pulled from MongoDB -->
+                                    <div class="todo-list-item-name">
+                                        <%= details.timeslot %>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                                <div class="star">
+                                    <span class="fas fa-star"></span>
+
+                                    <!-- Display the timeslot name via the content field of the timeslot pulled from MongoDB -->
+                                    <div class="todo-list-item-name">
+                                        <%= details.timeslot %>
+                                    </div>
+                                </div>
+                            <% } %>
+
+                            
+                        </li>
+                        
+                    
+                    <!-- Allow editing of timeslot availability if user not submitted -->
+                    <% } else { %>
+
+                        <!-- HTML display format of each timeslot -->
+                        <li class="todo-list-item">
+    
+                            <!-- Check if the timeslot is available, fill in the star icon if it is, else leave the star icon unfilled -->
+                            <% if (details.available) { %>
+                                <a href="/unavailable/<%=userData.user %>/<%= details._id %>" class="star-filled">
+                                    <span class="fas fa-star"></span>
+    
+                                    <!-- Display the timeslot name via the content field of the timeslot pulled from MongoDB -->
+                                    <div class="todo-list-item-name">
+                                        <%= details.timeslot %>
+                                    </div>
+                                </a>
+                            <% } else { %>
+                                <a href="/available/<%=userData.user %>/<%= details._id %>" class="star">
+                                    <span class="fas fa-star"></span>
+    
+                                    <!-- Display the timeslot name via the content field of the timeslot pulled from MongoDB -->
+                                    <div class="todo-list-item-name">
+                                        <%= details.timeslot %>
+                                    </div>
+                                </a>
+                            <% } %>
+                        </li>  
+                    <% } %>
+                <% }) %>
+            </ul>
+
+            <!-- Submit button, which becomes a return to Login button if user has submitted timeslot availability -->
+            <% if (userData.submitted) {%>
+                <div class="todo-list-item-name">Submitted</div>
+                <div class="todo-list-item-name">You can return to this page by going to /user/(your username)</div>
+                <a href="/">
+                    <button>Return to Login</button>
+                </a>
+            <% } else { %>
+                <a href="/submit/<%= userData.user %>">
+                    <button>Submit</button>
+                </a>
+            <% } %>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+
+<title>Login</title>
+
+<!-- Import stylesheets -->
+<link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="todo-container">
+        <h2>Enter a username to get started</h2>
+
+        <div class="todo">
+            <!-- User name input box, calls the POST method of index.js upon submission -->
+            <form action="/" method="POST" class="todo-header">
+                <input type="text" name="content">
+                <button type="submit"><span class="fas fa-plus"></span></button>
+            </form>
+        </div>
+    </div>
+</body>
